@@ -1,10 +1,10 @@
-import { Home, LayoutDashboard, LogOut, Settings, Ship, ChevronLeft, ChevronRight, Menu, X, BarChart3, UserCog, Shield, User, FileText, Users } from 'lucide-react';
+import { Home, LayoutDashboard, LogOut, Settings, Ship, ChevronLeft, ChevronRight, Menu, X, BarChart3, UserCog, Shield, User, FileText, Users, BookOpen } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
 import { useState, useEffect } from 'react';
 
 interface NavigationProps {
-  currentView: 'intake' | 'dashboard' | 'settings' | 'analytics' | 'ships' | 'roles' | 'discord' | 'crew' | 'contracts' | 'directory';
-  onNavigate: (view: 'intake' | 'dashboard' | 'settings' | 'analytics' | 'ships' | 'roles' | 'discord' | 'crew' | 'contracts' | 'directory') => void;
+  currentView: 'intake' | 'dashboard' | 'settings' | 'analytics' | 'ships' | 'roles' | 'discord' | 'crew' | 'contracts' | 'directory' | 'codex';
+  onNavigate: (view: 'intake' | 'dashboard' | 'settings' | 'analytics' | 'ships' | 'roles' | 'discord' | 'crew' | 'contracts' | 'directory' | 'codex') => void;
 }
 
 export function Navigation({ currentView, onNavigate }: NavigationProps) {
@@ -32,7 +32,7 @@ export function Navigation({ currentView, onNavigate }: NavigationProps) {
     onNavigate('intake');
   };
 
-  const handleNavigate = (view: 'intake' | 'dashboard' | 'settings' | 'analytics' | 'ships' | 'roles' | 'discord' | 'crew' | 'contracts' | 'directory') => {
+  const handleNavigate = (view: 'intake' | 'dashboard' | 'settings' | 'analytics' | 'ships' | 'roles' | 'discord' | 'crew' | 'contracts' | 'directory' | 'codex') => {
     onNavigate(view);
     if (isMobile) {
       setIsMobileOpen(false);
@@ -100,6 +100,19 @@ export function Navigation({ currentView, onNavigate }: NavigationProps) {
           >
             <Home className="w-5 h-5 flex-shrink-0" />
             {(!isCollapsed || isMobile) && <span>Client Intake</span>}
+          </button>
+
+          <button
+            onClick={() => handleNavigate('codex')}
+            className={`w-full flex items-center gap-3 px-6 py-3 text-left transition-all uppercase tracking-wider text-sm font-semibold ${
+              currentView === 'codex'
+                ? 'bg-emerald-900/50 text-emerald-300 border-l-4 border-emerald-400 shadow-[inset_0_0_20px_rgba(16,185,129,0.2)]'
+                : 'text-emerald-600 hover:bg-emerald-900/20 hover:text-emerald-300 border-l-4 border-transparent'
+            }`}
+            title="Codex"
+          >
+            <BookOpen className="w-5 h-5 flex-shrink-0" />
+            {(!isCollapsed || isMobile) && <span>Codex</span>}
           </button>
 
           {user && (

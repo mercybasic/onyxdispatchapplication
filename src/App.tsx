@@ -13,11 +13,12 @@ import { DiscordRoleMapping } from './components/DiscordRoleMapping';
 import { Profile } from './components/Profile';
 import { ContractManager } from './components/ContractManager';
 import { UserDirectory } from './components/UserDirectory';
+import { Codex } from './components/Codex';
 import { Shield, Search } from 'lucide-react';
 
 function AppContent() {
   const { user, loading } = useAuth();
-  const [view, setView] = useState<'intake' | 'login' | 'dashboard' | 'track' | 'settings' | 'analytics' | 'ships' | 'roles' | 'discord' | 'crew' | 'contracts' | 'directory'>('intake');
+  const [view, setView] = useState<'intake' | 'login' | 'dashboard' | 'track' | 'settings' | 'analytics' | 'ships' | 'roles' | 'discord' | 'crew' | 'contracts' | 'directory' | 'codex'>('intake');
   const [trackingData, setTrackingData] = useState<{ code: string; name: string } | null>(null);
 
   useEffect(() => {
@@ -84,6 +85,8 @@ function AppContent() {
       } else if (!loading) {
         setView('login');
       }
+    } else if (path === '/codex') {
+      setView('codex');
     } else if (path === '/track') {
       setView('track');
     } else {
@@ -94,7 +97,7 @@ function AppContent() {
     }
   }, [user, loading]);
 
-  const handleNavigate = (newView: 'intake' | 'dashboard' | 'settings' | 'analytics' | 'ships' | 'roles' | 'discord' | 'crew' | 'contracts' | 'directory') => {
+  const handleNavigate = (newView: 'intake' | 'dashboard' | 'settings' | 'analytics' | 'ships' | 'roles' | 'discord' | 'crew' | 'contracts' | 'directory' | 'codex') => {
     setView(newView);
     const path = newView === 'intake' ? '/'
       : newView === 'dashboard' ? '/dashboard'
@@ -105,7 +108,8 @@ function AppContent() {
       : newView === 'discord' ? '/discord'
       : newView === 'crew' ? '/crew'
       : newView === 'contracts' ? '/contracts'
-      : '/directory';
+      : newView === 'directory' ? '/directory'
+      : '/codex';
     window.history.pushState({}, '', path);
   };
 
@@ -125,10 +129,14 @@ function AppContent() {
     return <ClientTracker initialTrackingCode={trackingData?.code} initialClientName={trackingData?.name} />;
   }
 
+  if (view === 'codex' && !user) {
+    return <Codex />;
+  }
+
   if (user) {
     return (
       <>
-        <Navigation currentView={view as 'intake' | 'dashboard' | 'settings' | 'analytics' | 'ships' | 'roles' | 'discord' | 'crew' | 'contracts' | 'directory'} onNavigate={handleNavigate} />
+        <Navigation currentView={view as 'intake' | 'dashboard' | 'settings' | 'analytics' | 'ships' | 'roles' | 'discord' | 'crew' | 'contracts' | 'directory' | 'codex'} onNavigate={handleNavigate} />
         <div className="md:ml-64 transition-all duration-300">
           {view === 'dashboard' ? <DispatchDashboard />
             : view === 'settings' ? <SettingsPanel />
@@ -139,6 +147,7 @@ function AppContent() {
             : view === 'crew' ? <Profile />
             : view === 'contracts' ? <ContractManager />
             : view === 'directory' ? <UserDirectory />
+            : view === 'codex' ? <Codex />
             : <IntakeForm />}
         </div>
       </>
@@ -164,6 +173,15 @@ function AppContent() {
         >
           <Search className="w-4 h-4" />
           Track Request
+        </button>
+        <button
+          onClick={() => {
+            setView('codex');
+            window.history.pushState({}, '', '/codex');
+          }}
+          className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-emerald-900/80 to-cyan-900/80 hover:from-emerald-800/80 hover:to-cyan-800/80 text-emerald-200 clip-corners border-2 border-emerald-500/30 transition-all shadow-[0_0_15px_rgba(16,185,129,0.3)] hover:shadow-[0_0_25px_rgba(16,185,129,0.5)]"
+        >
+          Codex
         </button>
         <button
           onClick={() => setView('login')}
