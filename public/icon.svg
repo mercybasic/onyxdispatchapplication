@@ -1,0 +1,48 @@
+<svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="512" height="512" fill="#000000"/>
+  <rect x="32" y="32" width="448" height="448" fill="#0a0a0a"/>
+
+  <!-- Rocket icon with cyan glow (based on lucide-react Rocket) -->
+  <g filter="url(#glow)" transform="translate(256, 256)">
+    <!-- Main rocket body -->
+    <path d="M-40 -120 L-40 40 L-60 60 L-60 80 L-20 80 L-20 60 L-40 40 L-40 -120
+             C-40 -120 0 -140 40 -120 L40 40 L20 60 L20 80 L60 80 L60 60 L40 60 L40 -120
+             C40 -120 20 -130 0 -130 C-20 -130 -40 -120 -40 -120 Z"
+             fill="#06b6d4" stroke="#0891b2" stroke-width="3"/>
+
+    <!-- Rocket nose/tip -->
+    <path d="M-40 -120 L0 -160 L40 -120" fill="#0ea5e9" stroke="#0891b2" stroke-width="2"/>
+
+    <!-- Window -->
+    <circle cx="0" cy="-60" r="20" fill="#0a0a0a" stroke="#0ea5e9" stroke-width="3"/>
+    <circle cx="0" cy="-60" r="12" fill="#38bdf8"/>
+
+    <!-- Flames -->
+    <g opacity="0.9">
+      <ellipse cx="-40" cy="85" rx="15" ry="25" fill="#f59e0b"/>
+      <ellipse cx="-40" cy="95" rx="12" ry="20" fill="#fbbf24"/>
+      <ellipse cx="40" cy="85" rx="15" ry="25" fill="#f59e0b"/>
+      <ellipse cx="40" cy="95" rx="12" ry="20" fill="#fbbf24"/>
+    </g>
+
+    <!-- Fins -->
+    <path d="M-60 20 L-80 50 L-60 50 Z" fill="#0891b2"/>
+    <path d="M60 20 L80 50 L60 50 Z" fill="#0891b2"/>
+  </g>
+
+  <!-- Corner clips -->
+  <path d="M32 32L64 32L32 64Z" fill="#06b6d4"/>
+  <path d="M480 32L448 32L480 64Z" fill="#06b6d4"/>
+  <path d="M32 480L64 480L32 448Z" fill="#06b6d4"/>
+  <path d="M480 480L448 480L480 448Z" fill="#06b6d4"/>
+
+  <defs>
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="12" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+</svg>
